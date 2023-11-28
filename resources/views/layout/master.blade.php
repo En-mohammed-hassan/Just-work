@@ -1,19 +1,7 @@
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
-  <head><script src="../assets/js/color-modes.js"></script>
+@extends("layout.head")
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.118.2">
-    <title>Fixed top navbar example · Bootstrap v5.3</title>
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/navbar-fixed/">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
-    <link href="navbar-fixed.css" rel="stylesheet">
-  </head>
   <body>
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
       <symbol id="check2" viewBox="0 0 16 16">
@@ -86,15 +74,16 @@
         </li>
       </ul>
       <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
+        <a class="btn btn-outline-success logi" href="\login" type="submit">Login</a>
+        <a class="btn btn-outline-success" href="register" type="submit">Register</a>
       </form>
     </div>
          </div>
     </nav>
 
 <main class="">
-  <div class=" mt-5 pt-3">
+  <div class ="mainc">
     @yield("content")
   </div>
 </main>
