@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 class Appcontroller extends Controller
 {
     function login (){
-        return view("login") ;
+        return view("layout.login") ;
     }
     function register (){
-        return view("register") ;
+        return view("layout.register") ;
     }
 
 }
