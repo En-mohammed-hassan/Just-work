@@ -2,57 +2,88 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Response;
-class usercontroller extends Controller
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+
+class UserController extends Controller
 {
-public function reg(Request $request){
-    $fields = $request->validate([
-        "name" => "required|string",
-        "email" => "required|string|unique:users,email",
-        "password" =>"required|string|confirmed"
-    ]);
 
-    $user= User::create([
-        "name" =>$fields["name"],
-        "email" =>$fields["email"],
-        "password" => bcrypt( $fields["password"])
+    public function login()
+    {
+        return view("user.login");
+    }
 
-    ]);
-    $token = $user->createToken("key")->plainTextToken;
+    // // /**
+    // //  * Show the form for creating a new resource.
+    // //  */
+    public function create()
+    {
+        return view("user.create");
+    }
 
-    $response=[
-        "user" => $user,
-        "token"=> $token
-    ];
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $userfields = $request->validate([
+            "name" => ["required", "min:3"],
+            "email" => ["required", "email", Rule::unique("Users", "email")],
+            "password" => ["required", "min:6", "confirmed"]
+        ]);
 
-    return response($response,"200");
-}
- public function logout(){
-    auth()->user()->tokens()->delete();
-    return "logged out";
- }
+        $userfields["password"] = bcrypt($userfields["password"]);
 
- public function login(Request $request){
-    $fields = $request->validate([
-        "email" => "required|string",
-        "password" =>"required|string"
-    ]);
-    $user= User::where("email",$fields["email"])->first();
-    if(!$user || !Hash::check($fields["password"], $user->password) ){
-    return "email or passwoed dosent match";
+        $user = User::create($userfields);
+        auth()->login($user);
+        return redirect("/")->with("message", "user registered successfully");
 
     }
 
-    $token = $user->createToken("key")->plainTextToken;
+    /**
+     * Display the specified resource.
+     */
+    public function logout(Request $request)
+    {
+        auth()->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect("/")->with("message", "you are logged out");
+    }
 
-    $response=[
-        "user" => $user,
-        "token"=> $token
-    ];
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function auth(Request $request)
+    {
+        $userfields = $request->validate([
+            "email" => ["required", "email"],
+            "password" => ["required", "min:6"]
+        ]);
+        if (auth()->attempt($userfields)) {
 
-    return response($response,"200");
+            $request->session()->regenerate();
+            return redirect("/")->with("message", "logged in successfully");
 
-}}
+        }
+        return back()->withErrors(["email" => "Invalid information"])->onlyInput("email");
+    }
+
+    /** b
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+
+}
