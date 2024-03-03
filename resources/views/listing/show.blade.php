@@ -6,7 +6,7 @@
 <div>
 
         <div class="flex justify-between ">
-             <a href="/" class="inline-block text-black ml-4 text-xl mb-4"><i class="fa-solid fa-arrow-left"></i> Back
+             <a href="/" class="inline-block text-black ml-4 text-xl mb-4 hover:text-laravel"><i class="transition duration-700 ease-in-out fa-solid fa-arrow-left"></i> Back
              </a>
 
         </div>
@@ -38,7 +38,7 @@
 </div>
 
             <div class="m-5">
-                <x-list-tags  :tagscsv="$list->tags"/>
+                <x-list-tags-anchor :tagscsv="$list->tags"/>
 
 
             </div>
@@ -62,7 +62,7 @@
                 {{$list->description}}
                 <a
                     href="{{$list->email}}"
-                    class="block bg-laravel text-white mt-6 py-2 rounded-xl hover:opacity-80"
+                    class="block bg-laravel m-auto text-white mt-6 py-2 rounded-xl  w-[300px] xl:w-[600px]  lg:w-[450px]  hover:opacity-80"
                     ><i class="fa-solid fa-envelope"></i>
                     Contact Employer</a
                 >
@@ -70,7 +70,7 @@
                 <a
                     href="{{$list->website}}"
                     target="_blank"
-                    class="block bg-black text-white py-2 rounded-xl hover:opacity-80"
+                    class="block bg-black text-white m-auto  py-2 w-[300px] xl:w-[600px]  lg:w-[450px]  rounded-xl hover:opacity-80"
                     ><i class="fa-solid fa-globe"></i> Visit
                     Website</a
                 >

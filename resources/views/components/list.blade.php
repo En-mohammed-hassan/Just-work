@@ -1,4 +1,6 @@
 @props(["list"])
+<a class="" href="listing/@php echo $list->id; @endphp">
+
 <x-card >
     @php
     $time=now()->diffInMinutes($list->created_at);
@@ -9,12 +11,12 @@
 
 
 
+    <div>
 
-
-<h3 class="text-xl font-bold truncate">
-    <a href="listing/@php echo $list->id; @endphp">{{$list->title}}</a>
-</h3>
-<h2 class="text-xs text-gray-500 "> <i class="fa-solid fa-clock"></i> {{$count}} {{$type}}  Ago</h2>
+    <h3   h3 class="text-xl font-bold truncate">
+    {{$list->title}}
+    </h3>
+    <h2 class="text-xs text-gray-500 "> <i class="fa-solid fa-clock"></i> {{$count}} {{$type}}  Ago</h2>
     <div class="flex m-5">
 
         <img
@@ -31,4 +33,7 @@
             </div>
         </div>
     </div>
+    </div>
 </x-card>
+</a>
+
